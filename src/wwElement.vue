@@ -1,6 +1,6 @@
 <template>
   <div class="PDF-viewer" id="app">
-    <p>
+    <p style="display:none">
       <input type="text" ref="searchInput" :id="idConfig.findInput" v-model="searchQuery" />
       <input type="checkbox" :id="idConfig.findHighlightAll" checked />
     </p>
