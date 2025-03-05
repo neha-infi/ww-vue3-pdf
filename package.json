@@ -1,0 +1,14 @@
+{
+  "name": "ww-vue3-pdf",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "weweb build",
+    "serve": "weweb serve"
+  },
+  "devDependencies": {
+    "@weweb/cli": "latest"
+  },
+  "dependencies": {
+    "vue3-pdf-app": "^1.0.3"
+  }
+}
