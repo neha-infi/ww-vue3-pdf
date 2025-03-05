@@ -1,13 +1,15 @@
 <template>
   <div class="PDF-viewer" id="app">
     <p>
-      <input type="text" ref="searchInput" :id="idConfig.findInput" :value="this.content.search" />
+      <input type="text" ref="searchInput" :id="idConfig.findInput" v-model="searchQuery" />
       <input type="checkbox" :id="idConfig.findHighlightAll" checked />
     </p>
-    <vue-pdf-app style="height:100vh;width:100%" :pdf="this.content.pdf"
+    <vue-pdf-app
+      style="height:100vh;width:100%"
+      :pdf="content.pdf"
       :id-config="idConfig"
-      @after-created="afterCreated">
-    </vue-pdf-app>
+      @after-created="afterCreated"
+    ></vue-pdf-app>
   </div>
 </template>
 
@@ -17,17 +19,20 @@ import "vue3-pdf-app/dist/icons/main.css";
 
 export default {
   components: {
-    VuePdfApp
+    VuePdfApp,
   },
   props: {
     content: {
       type: Object,
-      default: () => ({ pdf: this.content.pdf, idConfig: { findInput: this.content.search, findHighlightAll:true} })
-    }
+      default: () => ({
+        pdf: "",
+        search: "",
+      }),
+    },
   },
   data() {
     return {
-      pdf: this.content.pdf,
+      searchQuery: this.content.search, // Store reactive search query
       idConfig: {
         findInput: "findInputId",
         findHighlightAll: "findHighlightAllId",
@@ -35,34 +40,53 @@ export default {
       pdfViewerApp: null,
     };
   },
+  watch: {
+    "content.search"(newSearch) {
+      this.searchQuery = newSearch;
+      this.triggerSearch();
+    },
+  },
   methods: {
+    initObserver() {
+      this.resizeObserver = new ResizeObserver(() => {
+        console.log(this.content.pdf);
+        console.log("Resized");
+      });
+      this.resizeObserver.observe(this.$el);
+    },
+    clearObserver() {
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+      }
+    },
     afterCreated(pdfApp) {
       console.log("PDF Viewer Created:", pdfApp);
       this.pdfViewerApp = pdfApp;
-
-      // Wait for pages to load before searching
       this.waitForPagesToRender();
     },
     async waitForPagesToRender() {
       console.log("Waiting for PDF to render...");
-
       let attempts = 0;
       while (!this.pdfViewerApp?.pdfViewer?.pagesCount && attempts < 10) {
         await new Promise((resolve) => setTimeout(resolve, 500));
         attempts++;
       }
-
       if (this.pdfViewerApp.pdfViewer.pagesCount) {
-        console.log("PDF Rendered. Starting search...", this.content.search);
-
+        console.log("PDF Rendered. Starting search...", this.searchQuery);
+        this.triggerSearch();
+      } else {
+        console.error("PDF did not render in time.");
+      }
+    },
+    triggerSearch() {
+      if (this.pdfViewerApp && this.searchQuery) {
+        console.log("Triggering search:", this.searchQuery);
         this.pdfViewerApp.eventBus.dispatch("find", {
-          query: this.content.search,
+          query: this.searchQuery,
           highlightAll: true,
           caseSensitive: false,
           entireWord: false,
         });
-      } else {
-        console.error("PDF did not render in time.");
       }
     },
   },
