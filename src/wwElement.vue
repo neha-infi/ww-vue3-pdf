@@ -101,6 +101,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pdf-app .toolbar{
+  z-index: unset;
+}
 .PDF-viewer{
   display: flex;
   flex-direction: column;
