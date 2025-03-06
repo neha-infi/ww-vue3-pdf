@@ -13,13 +13,12 @@ export default {
         placeholder: "PDF url",
       },
       defaultValue:
-        "https://bsiybqzphvbftfzexyhc.supabase.co/storage/v1/object/public/bill_documents/docs/59312_6076.pdf",
+        "https://bsiybqzphvbftfzexyhc.supabase.co/storage/v1/object/public/gov_uk_docs/docs/1730739021-S_-_W_April_22.pdf",
       bindable: true,
     },
     search: {
       label: { en: "search", fr: "search" },
       type: "Text",
-      defaultValue:"mem",
       options: {
         placeholder: "search",
       },
