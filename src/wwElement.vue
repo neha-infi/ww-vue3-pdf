@@ -101,14 +101,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .PDF-viewer .pdf-app .toolbar{
-    z-index: unset;
-  }
+  
 .PDF-viewer{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100vh;
+  .pdf-app .toolbar{
+    z-index: unset;
+  }
 }
 </style>
