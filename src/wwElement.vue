@@ -85,7 +85,7 @@ export default {
           query: this.searchQuery,
           highlightAll: true,
           caseSensitive: false,
-          entireWord: false,
+          entireWord: true,
         });
       }
     },
@@ -101,15 +101,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  
 .PDF-viewer{
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100vh;
-  .pdf-app .toolbar{
-    z-index: unset;
-  }
 }
 </style>
