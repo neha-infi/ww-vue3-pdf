@@ -77,10 +77,11 @@ export default {
       if (this.pdfViewerApp && this.searchQuery) {
         console.log("Triggering search:", this.searchQuery);
         this.pdfViewerApp.eventBus.dispatch("find", {
-          query: this.searchQuery,
-          highlightAll: true,
+          phraseSearch: this.searchQuery,
           caseSensitive: false,
           entireWord: true,
+          highlightAll: true,
+          findPrevious: false
         });
       }
     },
