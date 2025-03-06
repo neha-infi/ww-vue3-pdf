@@ -1,13 +1,8 @@
 <template>
   <div class="PDF-viewer" id="app">
-    <p style="display:none">
-      <input type="text" ref="searchInput" :id="idConfig.findInput" v-model="searchQuery" />
-      <input type="checkbox" :id="idConfig.findHighlightAll" checked />
-    </p>
     <vue-pdf-app
       style="height:100vh;width:100%"
       :pdf="content.pdf"
-      :id-config="idConfig"
       @after-created="afterCreated"
     ></vue-pdf-app>
   </div>
