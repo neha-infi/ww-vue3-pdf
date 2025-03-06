@@ -78,7 +78,7 @@ export default {
         console.log("Triggering search:", this.searchQuery);
         this.pdfViewerApp.eventBus.dispatch("find", {
           query: this.searchQuery,
-          phraseSearch: true,
+          phraseSearch: false,
           caseSensitive: false,
           entireWord: true,
           highlightAll: true,
