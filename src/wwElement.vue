@@ -93,6 +93,13 @@ export default {
   mounted() {
     this.initObserver();
     console.log("PDF URL:", this.content.pdf); // Debugging output
+    // Wait for DOM to render and update the z-index
+    this.$nextTick(() => {
+      const toolbar = document.querySelector(".pdf-app .toolbar");
+      if (toolbar) {
+        toolbar.style.zIndex = "auto";
+      }
+    });
   }
 };
 </script>
@@ -107,6 +114,9 @@ export default {
 }
 /* Fix toolbar z-index */
 ::v-deep(.pdf-app .toolbar) {
+  z-index: auto !important;
+}
+:deep(.pdf-app .toolbar) {
   z-index: auto !important;
 }
 </style>
