@@ -105,4 +105,8 @@ export default {
   width: 100%;
   height: 100vh;
 }
+/* Fix toolbar z-index */
+::v-deep(.pdf-app .toolbar) {
+  z-index: auto !important;
+}
 </style>
