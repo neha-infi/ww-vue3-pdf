@@ -46,10 +46,8 @@ export default {
       this.resizeObserver = new ResizeObserver(() => {
         console.log(this.content.pdf);
         console.log("Resized");
-        "content.search"(newSearch) {
-          this.searchQuery = newSearch;
-          this.triggerSearch();
-        },
+        this.searchQuery = this.content.search;
+        this.triggerSearch();
       });
       this.resizeObserver.observe(this.$el);
     },
