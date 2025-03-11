@@ -46,6 +46,9 @@ export default {
       this.resizeObserver = new ResizeObserver(() => {
         console.log(this.content.pdf);
         console.log("Resized");
+        console.log("PDF Viewer Created:", pdfApp);
+        this.pdfViewerApp = pdfApp;
+        this.waitForPagesToRender();
       });
       this.resizeObserver.observe(this.$el);
     },
